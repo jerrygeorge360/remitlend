@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { getRemittanceHistory, simulatePayment } from '../controllers/simulationController.js';
+import { strictRateLimiter } from '../middleware/rateLimiter.js';
 
 const router = Router();
 
@@ -86,6 +87,6 @@ router.get('/history/:userId', getRemittanceHistory);
  *       400:
  *         description: Invalid input data.
  */
-router.post('/simulate', simulatePayment);
+router.post('/simulate',strictRateLimiter, simulatePayment);
 
 export default router;
